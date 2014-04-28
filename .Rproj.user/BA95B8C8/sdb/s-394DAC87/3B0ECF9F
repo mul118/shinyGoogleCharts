@@ -1,0 +1,16 @@
+{
+    "contents" : "$(document).ready(function () {\n\n//Google Chart Output Binding\nvar googleChartOutputBinding = new Shiny.OutputBinding();\n$.extend(googleChartOutputBinding, {\n  find: function(scope) {\n    return $('.shinyGoogleChart')\n  },\n  getId: function(el) {\n    return $(el).attr('id');\n  },\n  renderValue: function(el, data){\n      function googleLoaded() {\n      var dataLabels = JSON.parse(data.dataLabels);\n      var chartData =  new google.visualization.DataTable();\n      $.each(dataLabels, function(i, obj) {\n        chartData.addColumn(obj, i);\n      });\n      chartData.addRows(JSON.parse(data.dataJSON));\n      wrapper = new google.visualization.ChartWrapper({\n            dataTable:    chartData,\n            containerId:  $(el).attr('id'),\n            chartType:    data.chartType,\n            options:      JSON.parse(data.options)\n      });\n      wrapper.draw();\n      $(el).data('chart', wrapper);\n    };\n    google.load(\"visualization\", \"1\", {\"callback\" : googleLoaded, \"packages\" : \"charteditor\"});\n  },\n  renderError: function(el, err){\n  },\n  clearError: function(el){\n  }\n});\nShiny.outputBindings.register(googleChartOutputBinding);\n\n  \n//chartEditor Input Binding\nvar chartEditorInputBinding = new Shiny.InputBinding();\n$.extend(chartEditorInputBinding, {\n  find: function(scope) {\n    return $('.chartEditor');\n  },\n  getValue: function(el) {\n    return  {chartType : $(el).attr('chartType'), options : $(el).attr('options')};\n  },\n  setValue: function(el, value) {\n  },\n  subscribe: function(el, callback) {  \n    $(el).on(\"change.chartEditorInputBinding\", function(e) {\n      callback();\n    });\n  },\n  unsubscribe: function(el) {\n  $(el).off(\".chartEditorInputBinding\");\n  }\n});\nShiny.inputBindings.register(chartEditorInputBinding);   \n\n//Refresh when user reconfigures chart\n$(document).on(\"click\", \"button.charts-buttonset-action\", function(evt) {\n  Shiny.unbindAll();\n  Shiny.bindAll();\n})\n\n//Refresh on window resize\n$(window).resize(function () {\n  Shiny.unbindAll(); \n  Shiny.bindAll();\n});\n\n    \n});",
+    "created" : 1398717735599.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2909356571",
+    "id" : "3B0ECF9F",
+    "lastKnownWriteTime" : 1398716674,
+    "path" : "~/Desktop/dev_software/shinyGoogleCharts/www/googleChart.js",
+    "project_path" : "www/googleChart.js",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "js"
+}

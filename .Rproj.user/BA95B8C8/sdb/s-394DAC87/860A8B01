@@ -1,0 +1,16 @@
+{
+    "contents" : "library(shinyGoogleCharts)\nlibrary(RJSONIO)\n\n#Basic Example\nrunApp(list(\n  ui = fluidPage(googleChartOutput('gchart1')),\n  \n  server = function(input, output, session) { \n    output$gchart1 <- renderGoogleChart({\n      googleChart(\n        data = subset(mtcars, select = c('cyl','mpg')), \n        type = 'ScatterChart'\n      )\n    })\n  }\n))\n\n#With options\nrunApp(list(\n  ui = fluidPage(googleChartOutput('gchart1')),\n  \n  server = function(input, output, session) { \n    output$gchart1 <- renderGoogleChart({\n      googleChart(\n        data = subset(mtcars, select = c('cyl','mpg')), \n        type = 'ScatterChart',\n        options=list(\n          title = 'Mtcars: Cylinders v MPG',\n          hAxis = list(title = 'Number of Cylinders'),\n          vAxis = list(title = 'Miles Per Gallon (mpg)')#,\n          #height = 400,\n          #width = 600\n        )\n      )\n    })\n  }\n))\n\n#Chart Editor\nrunApp(list(\n  ui = fluidPage(\n    fluidRow(column(12, googleChartOutput('chartgItemPlot1'))),\n    googleChartEditor('chartgItemPlot1_editor', 'chartgItemPlot1'),\n    h4('Chart Options'),\n    verbatimTextOutput('chartgItemPlot1_opts')\n    ),\n  \n  server = function(input, output, session) { \n    output$chartgItemPlot1_opts <- renderPrint({input$chartgItemPlot1_editor})\n    output$chartgItemPlot1 <- renderGoogleChart({\n      googleChart(\n        data = subset(mtcars, select = c('cyl','mpg')), \n        type = input$chartgItemPlot1_editor$chartType,\n        options = fromJSON(input$chartgItemPlot1_editor$options)\n      )\n    })\n  }\n))",
+    "created" : 1398717296242.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2878076141",
+    "id" : "860A8B01",
+    "lastKnownWriteTime" : 1398717516,
+    "path" : "~/Desktop/dev_software/shinyGoogleCharts/demo_dir/basic_chart.R",
+    "project_path" : "demo_dir/basic_chart.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

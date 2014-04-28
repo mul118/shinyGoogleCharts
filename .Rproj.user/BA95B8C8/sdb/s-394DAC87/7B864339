@@ -1,0 +1,16 @@
+{
+    "contents" : "Package: shinyGoogleCharts\nType: Package\nTitle: Google Charts optimized for Shiny\nVersion: 0.1\nDate: 2014-04-26\nAuthor: Misha Lisovich\nMaintainer: Misha Lisovich <mikhail.lisovich@gmail.com>\nDescription: Provides lightweight functions for displaying and editing Google\n    Charts in a Shiny app.\nLicense: MIT\nDepends:\n    R (>= 2.15.1)\nImports:\n    assertthat,\n    RJSONIO,\n    shiny (>= 0.8.0.99)\n",
+    "created" : 1398718050779.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3787425188",
+    "id" : "7B864339",
+    "lastKnownWriteTime" : 1398717236,
+    "path" : "~/Desktop/dev_software/shinyGoogleCharts/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "dcf"
+}

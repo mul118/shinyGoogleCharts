@@ -1,0 +1,17 @@
+{
+    "contents" : "#shinyGoogleCharts\n\nshinyGoogleCharts provides lightweight functions for displaying and \nediting Google Charts in a Shiny app.\n\nTo install, run\n\n```r\nif (!require(\"devtools\"))\n  install.packages(\"devtools\")\ndevtools::install_github(\"shinyGoogleCharts\", \"mul118\")\n```\n",
+    "created" : 1398717992569.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3744732276",
+    "id" : "2417578E",
+    "lastKnownWriteTime" : 1398718307,
+    "path" : "~/Desktop/dev_software/shinyGoogleCharts/README.md",
+    "project_path" : "README.md",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "markdown"
+}
