@@ -41,8 +41,9 @@ renderGoogleChart <- function(expr, env=parent.frame(), quoted = FALSE){
 #' @export
 googleChartOutput <- function(outputId){
   tagList( 
+    #addResourcePath(prefix = 'shinyGoogleCharts', 
     singleton(HTML('<script type="text/javascript" src="//www.google.com/jsapi"></script>')),
-    singleton(includeScript(paste0(system.file('www', package = 'shinyGoogleCharts'), '/googleChart.js'))),
+    singleton(includeScript(paste0(system.file('inst/www', package = 'shinyGoogleCharts'), '/googleChart.js'))),
     HTML(paste0('<div id = "', outputId, '" class="shinyGoogleChart" style = "width:100%; height:100%; overflow-y: hidden; overflow-x: hidden"></div>'))
   )
 }
@@ -59,7 +60,7 @@ googleChartOutput <- function(outputId){
 #' @export
 googleChartEditor <- function(inputId, target, type = 'Table', options = list(), label = 'Edit Chart'){tagList(
   singleton(HTML('<script type="text/javascript" src="//www.google.com/jsapi"></script>')),
-  singleton(includeScript(paste0(system.file('www', package = 'shinyGoogleCharts'), '/googleChart.js'))),
+  singleton(includeScript(paste0(system.file('inst/www', package = 'shinyGoogleCharts'), '/googleChart.js'))),
   
   #ChartEditor Button  
   HTML(paste0("<div class = 'chartEditor btn' style='display:inline;' onclick='openChartEditor(\"", target, 
