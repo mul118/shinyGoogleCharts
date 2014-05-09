@@ -1,7 +1,7 @@
 #shinyGoogleCharts
 
 shinyGoogleCharts provides lightweight functions for displaying and 
-editing Google Charts in a Shiny app.
+interactively editing Google Charts in a Shiny app.
 
 To install, run
 

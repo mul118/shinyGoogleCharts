@@ -11,8 +11,8 @@ googleChartOutput(outputId)
 a plot output element that can be included in a panel
 }
 \description{
-Render a \link{renderGoogleChart} within an application
-page.
+Display a \link{renderGoogleChart} object within an
+application page.
 }
 \examples{
 # Show a Google Line Chart

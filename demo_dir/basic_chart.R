@@ -1,5 +1,6 @@
 library(shinyGoogleCharts)
 library(RJSONIO)
+library(dplyr)
 
 #Basic Example
 runApp(list(
@@ -49,7 +50,7 @@ runApp(list(
     output$chartgItemPlot1_opts <- renderPrint({input$chartgItemPlot1_editor})
     output$chartgItemPlot1 <- renderGoogleChart({
       googleChart(
-        data = subset(mtcars, select = c('cyl','mpg')), 
+        data = arrange(select(mtcars, disp, mpg, wt), disp), 
         type = input$chartgItemPlot1_editor$chartType,
         options = fromJSON(input$chartgItemPlot1_editor$options)
       )

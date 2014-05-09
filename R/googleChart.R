@@ -1,5 +1,9 @@
 #' Generate a Google Chart object
 #' 
+#' @import RJSONIO 
+#' @param data data frame to render as a Google chart. The mappings (xvar, yvar, etc.) are determined by column order and chart type.
+#' @param type chart type
+#' @param options chart options
 #' @export
 googleChart   <- function(data, type = 'Table', options = list()){
   formatted_data  <- googleVis:::gvisFormat(data)
@@ -25,7 +29,7 @@ renderGoogleChart <- function(expr, env=parent.frame(), quoted = FALSE){
 
 #' Google Chart output element
 #'
-#' Render a \link{renderGoogleChart} within an application page.
+#' Display a \link{renderGoogleChart} object within an application page.
 #' @param outputId output variable to read the plot from
 #' @return a plot output element that can be included in a panel
 #' @examples
@@ -33,24 +37,34 @@ renderGoogleChart <- function(expr, env=parent.frame(), quoted = FALSE){
 #' mainPanel(
 #'   googleChartOutput("myLineChart")
 #' )
+#' @import shiny
 #' @export
-googleChartOutput <- function(outputId){tagList(
-  singleton(HTML('<script type="text/javascript" src="//www.google.com/jsapi"></script>')),
-  singleton(includeScript(paste0(getwd(),'/www/googleChart.js'))),
-  HTML(paste0('<div id = "', outputId, '" class="shinyGoogleChart" style = "width:100%; height:100%; overflow-y: hidden; overflow-x: hidden"></div>'))
-)}
+googleChartOutput <- function(outputId){
+  tagList( 
+    singleton(HTML('<script type="text/javascript" src="//www.google.com/jsapi"></script>')),
+    singleton(includeScript(paste0(system.file('www', package = 'shinyGoogleCharts'), '/googleChart.js'))),
+    HTML(paste0('<div id = "', outputId, '" class="shinyGoogleChart" style = "width:100%; height:100%; overflow-y: hidden; overflow-x: hidden"></div>'))
+  )
+}
 
 #' Shiny Chart Editor output element
 #' 
+#' Display a Chart Editor button within an application page.  Displays a GUI allowing user to modify properties of the target chart.
+#' @param inputId id of the chart editor, available as an input variable
+#' @param targetId id of the \link{renderGoogleChart} object modified by the editor
+#' @param type initial type of the target chart.  Defaults to 'Table'
+#' @param options initial options of the target chart
+#' @param label label for the Chart Editor button
+#' @import shiny
 #' @export
-googleChartEditor <- function(id, target, type = 'Table', options = '{}', label = 'Edit Chart'){tagList(
+googleChartEditor <- function(inputId, target, type = 'Table', options = list(), label = 'Edit Chart'){tagList(
   singleton(HTML('<script type="text/javascript" src="//www.google.com/jsapi"></script>')),
-  singleton(includeScript(paste0(getwd(),'/www/googleChart.js'))),
+  singleton(includeScript(paste0(system.file('www', package = 'shinyGoogleCharts'), '/googleChart.js'))),
   
   #ChartEditor Button  
   HTML(paste0("<div class = 'chartEditor btn' style='display:inline;' onclick='openChartEditor(\"", target, 
-     "\");' data-target = '", target, "' options = '", options,
-     "' chartType = '", type,"' id = '", id,"'>",label,"</div> ")),
+     "\");' data-target = '", target, "' options = '", toJSON(options),
+     "' chartType = '", type,"' id = '", inputId,"'>",label,"</div> ")),
 
   singleton(tags$script(
        "var openChartEditor = function(chartId){
