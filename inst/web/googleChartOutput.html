@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>googleChartOutput. shinyGoogleCharts 0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">shinyGoogleCharts 0.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Google Chart output element</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>googleChartOutput(outputId)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>outputId</dt>
+      <dd>output variable to read the plot from</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+      
+      <p>a plot output element that can be included in a panel</p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Display a <a href='renderGoogleChart.html'>renderGoogleChart</a> object within an
+application page.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># Show a Google Line Chart
+mainPanel(
+  googleChartOutput(&quot;myLineChart&quot;)
+)
+</div>
+<div class='output'>&lt;div class=&quot;span8&quot;&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;//www.google.com/jsapi&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;shinyAce/googleChart.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;$(document).ready(function () {
+
+//Google Chart Output Binding
+var googleChartOutputBinding = new Shiny.OutputBinding();
+$.extend(googleChartOutputBinding, {
+  find: function(scope) {
+    return $(&#39;.shinyGoogleChart&#39;)
+  },
+  getId: function(el) {
+    return $(el).attr(&#39;id&#39;);
+  },
+  renderValue: function(el, data){
+      function googleLoaded() {
+      var dataLabels = JSON.parse(data.dataLabels);
+      var chartData =  new google.visualization.DataTable();
+      $.each(dataLabels, function(i, obj) {
+        chartData.addColumn(obj, i);
+      });
+      chartData.addRows(JSON.parse(data.dataJSON));
+      wrapper = new google.visualization.ChartWrapper({
+            dataTable:    chartData,
+            containerId:  $(el).attr(&#39;id&#39;),
+            chartType:    data.chartType,
+            options:      JSON.parse(data.options)
+      });
+      wrapper.draw();
+      $(el).data(&#39;chart&#39;, wrapper);
+    };
+    google.load(&quot;visualization&quot;, &quot;1&quot;, {&quot;callback&quot; : googleLoaded, &quot;packages&quot; : &quot;charteditor&quot;});
+  },
+  renderError: function(el, err){
+  },
+  clearError: function(el){
+  }
+});
+Shiny.outputBindings.register(googleChartOutputBinding);
+
+  
+//chartEditor Input Binding
+var chartEditorInputBinding = new Shiny.InputBinding();
+$.extend(chartEditorInputBinding, {
+  find: function(scope) {
+    return $(&#39;.chartEditor&#39;);
+  },
+  getValue: function(el) {
+    return  {chartType : $(el).attr(&#39;chartType&#39;), options : $(el).attr(&#39;options&#39;)};
+  },
+  setValue: function(el, value) {
+  },
+  subscribe: function(el, callback) {  
+    $(el).on(&quot;change.chartEditorInputBinding&quot;, function(e) {
+      callback();
+    });
+  },
+  unsubscribe: function(el) {
+  $(el).off(&quot;.chartEditorInputBinding&quot;);
+  }
+});
+Shiny.inputBindings.register(chartEditorInputBinding);   
+
+//Refresh when user reconfigures chart
+$(document).on(&quot;click&quot;, &quot;button.charts-buttonset-action&quot;, function(evt) {
+  Shiny.unbindAll();
+  Shiny.bindAll();
+})
+
+//Refresh on window resize
+$(window).resize(function () {
+  Shiny.unbindAll(); 
+  Shiny.bindAll();
+});
+
+    
+});&lt;/script&gt;
+  &lt;div id = &quot;myLineChart&quot; class=&quot;shinyGoogleChart&quot; style = &quot;width:100%; height:100%; overflow-y: hidden; overflow-x: hidden&quot;&gt;&lt;/div&gt;
+&lt;/div&gt; 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>googleChartOutput</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

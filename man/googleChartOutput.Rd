@@ -2,10 +2,10 @@
 \alias{googleChartOutput}
 \title{Google Chart output element}
 \usage{
-googleChartOutput(outputId)
+googleChartOutput(chartId)
 }
 \arguments{
-  \item{outputId}{output variable to read the plot from}
+  \item{chartId}{output variable to read the plot from}
 }
 \value{
 a plot output element that can be included in a panel

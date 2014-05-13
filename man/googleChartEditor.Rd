@@ -2,14 +2,14 @@
 \alias{googleChartEditor}
 \title{Shiny Chart Editor output element}
 \usage{
-googleChartEditor(inputId, target, type = "Table", options = list(),
+googleChartEditor(editorId, chartId, type = "Table", options = list(),
   label = "Edit Chart")
 }
 \arguments{
-  \item{inputId}{id of the chart editor, available as an
+  \item{editorId}{id of the chart editor, available as an
   input variable}
 
-  \item{targetId}{id of the \link{renderGoogleChart} object
+  \item{chartId}{id of the \link{renderGoogleChart} object
   modified by the editor}
 
   \item{type}{initial type of the target chart.  Defaults
